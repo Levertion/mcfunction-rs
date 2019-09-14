@@ -1,0 +1,22 @@
+---
+source: packages/lexer/src/lexer/test.rs
+expression: "pretty_tokenise(\"-10 0 10000000000000000000000000000000000000000000000000 -10.0 .9 123.456\")"
+---
+"-": HYPHEN
+"10": INT
+" ": WHITESPACE
+"0": INT
+" ": WHITESPACE
+"10000000000000000000000000000000000000000000000000": INT
+" ": WHITESPACE
+"-": HYPHEN
+"10": INT
+".": DOT
+"0": INT
+" ": WHITESPACE
+".": DOT
+"9": INT
+" ": WHITESPACE
+"123": INT
+".": DOT
+"456": INT

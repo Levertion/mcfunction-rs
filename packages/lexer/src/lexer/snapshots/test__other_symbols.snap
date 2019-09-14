@@ -1,0 +1,19 @@
+---
+source: packages/lexer/src/lexer/test.rs
+expression: "pretty_tokenise(\"{}[]@=:..,.~^+/-\")"
+---
+"{": L_CURLY
+"}": R_CURLY
+"[": L_SQUARE
+"]": R_SQUARE
+"@": AT
+"=": EQUALS
+":": COLON
+"..": DOUBLEDOT
+",": COMMA
+".": DOT
+"~": TILDA
+"^": CARET
+"+": PLUS
+"/": SLASH
+"-": HYPHEN

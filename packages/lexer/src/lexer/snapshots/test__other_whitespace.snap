@@ -1,0 +1,19 @@
+---
+source: packages/lexer/src/lexer/test.rs
+expression: "pretty_tokenise(\"Tab:\\u{9}. Newline:\nNewline and Spaces:    \n        \")"
+---
+"Tab": WORD
+":": COLON
+"\t": WHITESPACE
+".": DOT
+" ": WHITESPACE
+"Newline": WORD
+":": COLON
+"\n": WHITESPACE
+"Newline": WORD
+" ": WHITESPACE
+"and": WORD
+" ": WHITESPACE
+"Spaces": WORD
+":": COLON
+"    \n        ": WHITESPACE

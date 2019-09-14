@@ -1,5 +1,5 @@
 [package]
-name = "parser"
+name = "mcfunction-lexer"
 version = "0.1.0"
 authors = ["Levertion <26185209+Levertion@users.noreply.github.com>"]
 edition = "2018"
@@ -9,3 +9,6 @@ license = "MIT OR Apache-2.0"
 
 [dependencies]
 rowan = "0.6.2"
+
+[dev-dependencies]
+insta = "0.11.0"

@@ -1,0 +1,15 @@
+---
+source: packages/lexer/src/lexer/test.rs
+expression: "pretty_tokenise(\"Single space-Double  space-Many          space\")"
+---
+"Single": WORD
+" ": WHITESPACE
+"space": WORD
+"-": HYPHEN
+"Double": WORD
+"  ": WHITESPACE
+"space": WORD
+"-": HYPHEN
+"Many": WORD
+"          ": WHITESPACE
+"space": WORD

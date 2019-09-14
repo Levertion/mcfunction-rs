@@ -25,7 +25,7 @@ fn next_token(text: &str) -> Token {
         let mut byte_len = 0;
         for c in text.chars() {
             byte_len += c.len_utf8();
-            if valid_token(&text[byte_len..]).is_some() {
+            if text.len() > byte_len && valid_token(&text[byte_len..]).is_some() {
                 break;
             }
         }
@@ -44,11 +44,13 @@ fn valid_token(text: &str) -> Option<Token> {
         ("=", EQUALS),
         (":", COLON),
         ("..", DOUBLEDOT),
-        // (".", DOT),  - This is special cased due to FLOATS like .6
+        (".", DOT),
         (",", COMMA),
         ("~", TILDA),
         ("^", CARET),
+        ("+", PLUS),
         ("/", SLASH),
+        ("-", HYPHEN),
     ];
     for &(token_text, kind) in RULES {
         if text.starts_with(token_text) {
@@ -57,17 +59,6 @@ fn valid_token(text: &str) -> Option<Token> {
                 len: TextUnit::of_str(token_text),
             });
         }
-    }
-    if text.starts_with(".") {
-        match text.chars().nth(1) {
-            Some(c) if !c.is_ascii_digit() => {
-                return Some(Token {
-                    len: TextUnit::of_str("."),
-                    kind: DOT,
-                })
-            }
-            _ => (),
-        };
     }
     let mut chars = text.char_indices();
     let (_, first) = chars
@@ -93,18 +84,15 @@ fn valid_token(text: &str) -> Option<Token> {
             }
         }
     }
-    let mut is_float = false;
-    eat_while!(if is_float { FLOAT } else { INT }, |c| is_allowed_number(
-        c,
-        &mut is_float
-    ));
-    eat_while!(UNQUOTED_STRING, is_allowed_in_unquoted_string);
+
+    eat_while!(INT, |c: char| c.is_ascii_digit()); // is_ascii_digit has an &self reciever
+    eat_while!(WORD, is_allowed_in_word);
     eat_while!(WHITESPACE, char::is_whitespace);
     None
 }
 
 fn quoted_string_token(text: &str, quote: char) -> Token {
-    let mut indices = text.char_indices().skip(1);
+    let mut indices = text.char_indices().skip(1); // Skip the open quotes
     let mut escaped = false;
     for (_, c) in &mut indices {
         match c {
@@ -122,80 +110,9 @@ fn quoted_string_token(text: &str, quote: char) -> Token {
     }
 }
 
-fn is_allowed_number(c: char, is_float: &mut bool) -> bool {
-    match c {
-        '0'..='9' | '-' => true,
-        '.' => {
-            *is_float = true;
-            true
-        }
-        _ => false,
-    }
-}
-
-fn is_allowed_in_unquoted_string(c: char) -> bool {
-    match c {
-        '_' | '0' | '.' | '+' => true,
-        _ => c.is_ascii_alphanumeric(),
-    }
+fn is_allowed_in_word(c: char) -> bool {
+    c == '_' || c.is_ascii_alphabetic()
 }
 
 #[cfg(test)]
-fn test(input: &str, expected: &str) {
-    let mut actual = String::new();
-    for t in tokenize(input) {
-        actual += &format!("{:?} {}\n", t.kind, t.len.to_usize());
-    }
-    let expected = expected.trim();
-    let actual = actual.trim();
-
-    assert_eq!(
-        expected, actual,
-        "\nExpected:\n\n\
-         {}\n\n\
-         Actual:\n\n\
-         {}\n\n",
-        expected, actual,
-    );
-}
-
-#[test]
-fn test_lexing() {
-    test(
-        "execute as @a",
-        "UNQUOTED_STRING 7
-WHITESPACE 1
-UNQUOTED_STRING 2
-WHITESPACE 1
-AT 1
-UNQUOTED_STRING 1",
-    );
-    test(
-        "/say unknown chars %*()\"",
-        "SLASH 1
-UNQUOTED_STRING 3
-WHITESPACE 1
-UNQUOTED_STRING 7
-WHITESPACE 1
-UNQUOTED_STRING 5
-WHITESPACE 1
-OTHER 4
-QUOTED_STRING 1",
-    );
-    test(
-        "-10 0 10000000000000000000000000000000000000000000000000",
-        "INT 3
-WHITESPACE 1
-INT 1
-WHITESPACE 1
-INT 50",
-    );
-    test(
-        "-10.0 .9 123.456",
-        "FLOAT 5
-WHITESPACE 1
-FLOAT 2
-WHITESPACE 1
-FLOAT 7",
-    )
-}
+mod test;

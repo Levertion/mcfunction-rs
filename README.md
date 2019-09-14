@@ -4,6 +4,8 @@ Tools for working with minecraft commands, function files and datapacks written 
 
 The layout of this repository is inspired by [rust-analyzer](https://github.com/rust-analyzer/rust-analyzer).
 
+For testing, we primarily used snapshot based testing using [insta](https://crates.io/crates/insta).
+
 ## License
 
 Licensed under either of

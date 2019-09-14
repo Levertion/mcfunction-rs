@@ -1,0 +1,10 @@
+---
+source: packages/lexer/src/lexer/test.rs
+expression: "pretty_tokenise(\"execute as @a\")"
+---
+"execute": WORD
+" ": WHITESPACE
+"as": WORD
+" ": WHITESPACE
+"@": AT
+"a": WORD

@@ -1,0 +1,5 @@
+---
+source: packages/lexer/src/lexer/test.rs
+expression: "pretty_tokenise(\"%*()\")"
+---
+"%*()": OTHER

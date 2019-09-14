@@ -1,0 +1,11 @@
+---
+source: packages/lexer/src/lexer/test.rs
+expression: "pretty_tokenise(r#\"'Simple valid'\n'Valid with \\'escaped quotes\\''\n'Valid with escaped backslashes\\\\ and \\'quotes\\''\n'Valid with \"Other quotes\"'\"#)"
+---
+"\'Simple valid\'": QUOTED_STRING
+"\n": WHITESPACE
+"\'Valid with \\\'escaped quotes\\\'\'": QUOTED_STRING
+"\n": WHITESPACE
+"\'Valid with escaped backslashes\\\\ and \\\'quotes\\\'\'": QUOTED_STRING
+"\n": WHITESPACE
+"\'Valid with \"Other quotes\"\'": QUOTED_STRING
