@@ -1,5 +1,5 @@
 ---
-source: packages/lexer/src/lexer/test.rs
+source: packages/parser/src/lexer/test.rs
 expression: "pretty_tokenise(r#\"\"In brigadier, the only escapes are for \\\\ backslashes and \\\"quotes\\\". Our lexer allows other escapes too,\ne.g. \\h \\u \\i etc., because that allows us to have sane error recovery.\"\"#)"
 ---
 "\"In brigadier, the only escapes are for \\\\ backslashes and \\\"quotes\\\". Our lexer allows other escapes too,\ne.g. \\h \\u \\i etc., because that allows us to have sane error recovery.\"": QUOTED_STRING

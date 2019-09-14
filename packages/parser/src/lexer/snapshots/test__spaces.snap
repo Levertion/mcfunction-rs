@@ -1,5 +1,5 @@
 ---
-source: packages/lexer/src/lexer/test.rs
+source: packages/parser/src/lexer/test.rs
 expression: "pretty_tokenise(\"Single space-Double  space-Many          space\")"
 ---
 "Single": WORD

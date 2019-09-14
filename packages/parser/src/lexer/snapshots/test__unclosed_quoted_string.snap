@@ -1,5 +1,5 @@
 ---
-source: packages/lexer/src/lexer/test.rs
+source: packages/parser/src/lexer/test.rs
 expression: "pretty_tokenise(r#\"\"Even though this quoted string is never \\\"closed\\\" it is still accepted.\"#)"
 ---
 "\"Even though this quoted string is never \\\"closed\\\" it is still accepted.": QUOTED_STRING
