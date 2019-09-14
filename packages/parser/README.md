@@ -1,9 +1,6 @@
-# mcfunction-lexer
+# mcfunction-parser
 
-A lexer for Minecraft commands, most commonly found within function files.
-This package contains the lexer and the definition of the syntax kinds.
-
-<!-- This is a seperate crate primarily to allow shipping SNBT handling as it's own crates -->
+A parser for the Minecraft commands language.
 
 ## License
 

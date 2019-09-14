@@ -1,5 +1,5 @@
 [package]
-name = "mcfunction-lexer"
+name = "mcfunction-parser"
 version = "0.1.0"
 authors = ["Levertion <26185209+Levertion@users.noreply.github.com>"]
 edition = "2018"

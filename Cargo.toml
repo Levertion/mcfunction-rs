@@ -1,2 +1,2 @@
 [workspace]
-members = ["packages/lexer"]
+members = ["packages/parser"]
