@@ -30,7 +30,7 @@ fn next_token(text: &str) -> Token {
             }
         }
         let len = TextUnit::from_usize(byte_len);
-        Token { kind: OTHER, len }
+        Token { kind: ERROR, len }
     })
 }
 
